@@ -76,4 +76,19 @@ for i in coordinates:
 
     l.append(d)
 
-print(min(l))
+
+min_value = l[0]
+min_index = 0
+
+for i, value in enumerate(l):
+    if value < min_value:
+      min_value = value
+      min_index = i
+
+
+list(coordinates.keys())[min_index]
+
+
+currentcity = coordinates[list(coordinates.keys())[min_index]]
+
+print(currentcity)
