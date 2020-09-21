@@ -86,10 +86,12 @@ for i, value in enumerate(l):
       min_index = i
 
 
-list(coordinates.keys())[min_index]
+closetcity = list(coordinates.keys())[min_index]
 
-
-currentcity = coordinates[list(coordinates.keys())[min_index]]
+currentcity = coordinates[closestcity]
 
 print(currentcity)
 
+coordinates.pop(closestcity)
+
+print(coordinates)
