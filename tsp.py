@@ -77,3 +77,4 @@ for i in coordinates:
     l.append(d)
 
 print(min(l))
+print("xxxx")
