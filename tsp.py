@@ -76,6 +76,7 @@ for i in coordinates:
 
     l.append(d)
 
+<<<<<<< HEAD
 
 min_value = l[0]
 min_index = 0
@@ -92,3 +93,7 @@ list(coordinates.keys())[min_index]
 currentcity = coordinates[list(coordinates.keys())[min_index]]
 
 print(currentcity)
+=======
+print(min(l))
+print("xxxx")
+>>>>>>> 3d154975df68e9d8a3683221490cac3b8b1ec7b5
