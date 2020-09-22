@@ -48,50 +48,42 @@ coordinates = {
 }
 
 
-# This is the code for the scatter plot
- """import numpy as np
-import matplotlib.pyplot as plt
-
-colors = (0, 0, 0)
-
-# Plot
-plt.scatter(x, y, s=area, c=colors, alpha=0.5)
-plt.title('European Cities')
-plt.xlabel('x')
-plt.ylabel('y')
-plt.show()"""
-
-!pip install haversine
-
 import haversine as hs
 
 l = []
+
 currentcity = [+40.4167, -3.7033588]
 
 
-for i in coordinates:
+def next_city(current, availablecities):
+    c += 0
+    l = []
 
-    d = hs.haversine(currentcity, coordinates[i])
-
-
-    l.append(d)
-
-
-min_value = l[0]
-min_index = 0
-
-for i, value in enumerate(l):
-    if value < min_value:
-      min_value = value
-      min_index = i
+    for i in availablecities:
+        d = hs.haversine(current, availablecities[i])
+        l.append(d)
 
 
-closetcity = list(coordinates.keys())[min_index]
 
-currentcity = coordinates[closestcity]
 
-print(currentcity)
+    min_value = l[0]
+    min_index = 0
 
-coordinates.pop(closestcity)
+    for i, value in enumerate(l):
+        if value < min_value:
+            min_value = value
+            min_index = i
+            c += co
 
-print(coordinates)
+    closestcity = list(availablecities.keys())[min_index]
+
+    current = closestcity
+
+    print(current)
+
+    availablecities.pop(closestcity)
+
+    return (coordinates[current], availablecities)
+
+current = [+40.4167, -3.7033588]
+city_dict = coordinates.copy()
