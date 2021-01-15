@@ -1,6 +1,11 @@
+#!/usr/bin/env python
+
+####### Travller Sales Man Problem  #####################
+
 
 
 coordinates = {
+"SpainMadrid": [+40.4167, -3.7033588],
 "AlbaniaTirana": [+41.3317, +19.8172104],
 "AndorralaVella": [+42.5075, +1.52181409],
 "AustriaVienna": [+48.2092, +16.3728170],
@@ -17,7 +22,6 @@ coordinates = {
 "GermanyBerlin": [+52.5235, +13.411534],
 "GreeceAthens": [+37.9792, +23.7166153],
 "HungaryBudapest": [+47.4984, +19.0408102],
-"IcelandReykjavik": [+64.1353, -21.895215],
 "IrelandDublin": [+53.3441, -6.26758],
 "ItalyRome": [+41.8955, +12.482314],
 "KosovoPristina": [+42.6740,  +21.1788652],
@@ -44,11 +48,11 @@ coordinates = {
 "UnitedKingdomLondon": [+51.5002, -0.126214]
 }
 
-#"SpainMadrid": [+40.4167, -3.7033588]
+#"IcelandReykjavik": [+64.1353, -21.895215],
 
 
-current = [+40.4167, -3.7033588]              #SpainMadrid
-homecoordinates = [+40.4167, -3.7033588]
+current = [+64.1353, -21.895215]              #SpainMadrid
+homecoordinates = [+64.1353, -21.895215]
 
 
 
@@ -118,4 +122,4 @@ for i in range (len(coordinates)):
 totaldistancehome = total_distance + return_home(current, homecoordinates)
 
 
-print(f"The total distance to travel from Madrid, Spain through all the capital cities in Europe and back to Madrid, Spain is {round(totaldistancehome, 2)}")
+print(f"The total distance to travel from Reykjavik, Iceland through all the capital cities in Europe and back to Reykjavik, Iceland is {round(totaldistancehome, 2)}")

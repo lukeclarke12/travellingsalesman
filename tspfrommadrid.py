@@ -1,9 +1,10 @@
-##### Traveller Sales Man Problem #####
+#!/usr/bin/env python
 
+
+import haversine as hs
 
 
 coordinates = {
-"SpainMadrid": [+40.4167, -3.7033588],
 "AlbaniaTirana": [+41.3317, +19.8172104],
 "AndorralaVella": [+42.5075, +1.52181409],
 "AustriaVienna": [+48.2092, +16.3728170],
@@ -47,14 +48,22 @@ coordinates = {
 "UnitedKingdomLondon": [+51.5002, -0.126214]
 }
 
+#"SpainMadrid": [+40.4167, -3.7033588]
 
 
-import haversine as hs
+current = [+40.4167, -3.7033588]              #SpainMadrid
+homecoordinates = [+40.4167, -3.7033588]
+
+
+
+###########################################################################################################################
+print("The route is as follows:")
+print('Madrid, Spain')
 
 def next_city(current, availablecities):
 
     l = []
-
+    
     for i in availablecities:
         d = hs.haversine(current, availablecities[i])
         l.append(d)
@@ -71,18 +80,15 @@ def next_city(current, availablecities):
             min_index = i
 
 
-
-
     closestcity = list(availablecities.keys())[min_index]
 
     current = closestcity
 
+    print(current)
 
     availablecities.pop(closestcity)
 
     return (coordinates[current], availablecities, min_distance)
-
-
 
 
 
@@ -92,68 +98,29 @@ def return_home(current, homecoordinates):
 
     return returndistance
 
-##############################################################################################################################
 
 
-totaldistances = []
-startingpoints = []
-
-
-def solution(coordinates):
-
-    for j in coordinates:
-
-        aux_dict = coordinates.copy()
-        current = aux_dict.pop(j)
-        homecoordinates = current
-
-
-        total_distance = 0
-
-        city_dict = aux_dict.copy()
-
-
-        for i in range(len(aux_dict)):
-
-            current, city_dict, min_distance = next_city(current,city_dict)
-
-            total_distance = total_distance + min_distance
-
-
-        totaldistancehome = total_distance + return_home(current, homecoordinates)
-
-
-        totaldistances.append(totaldistancehome)
-
-
-        startingpoints.append(j)
-
-
-solution(coordinates)
-
-####################################################################################################################
-
-def mindistance(totaldistances, startingpoints):
-    mintotaldistance = totaldistances[0]
-    minpointindex = 0
-
-
-    for k, distance in enumerate(totaldistances):
-        if distance < mintotaldistance:
-            mintotaldistance = distance
-            minpointindex = k
-
-    startingcity = startingpoints[minpointindex]
-    return mintotaldistance, startingcity
+###########################################################################################################################
 
 
 
 
+city_dict = coordinates.copy()
 
 
-mintotaldistance, startingcity = mindistance(totaldistances, startingpoints)
+total_distance = 0
 
 
+for i in range (len(coordinates)):
 
 
-print(f"The route with the minimum total distance to travel through all the capital cities in Europe and back to the starting point starts in {startingcity} and the total distance is {round(mintotaldistance, 2)}.")
+    current, city_dict, min_distance = next_city(current,city_dict)
+
+    total_distance = total_distance + min_distance
+
+
+totaldistancehome = total_distance + return_home(current, homecoordinates)
+
+print('Madrid, Spain')
+print(f"The total distance to travel from Madrid, Spain through all the capital cities in Europe and back to Madrid, Spain is {round(totaldistancehome,2)} kilometers")
+

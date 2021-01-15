@@ -1,5 +1,6 @@
-####### Travller Sales Man Problem  #####################
+#!/usr/bin/env python
 
+##### Traveller Sales Man Problem #####
 
 
 coordinates = {
@@ -20,6 +21,7 @@ coordinates = {
 "GermanyBerlin": [+52.5235, +13.411534],
 "GreeceAthens": [+37.9792, +23.7166153],
 "HungaryBudapest": [+47.4984, +19.0408102],
+"IcelandReykjavik": [+64.1353, -21.895215],
 "IrelandDublin": [+53.3441, -6.26758],
 "ItalyRome": [+41.8955, +12.482314],
 "KosovoPristina": [+42.6740,  +21.1788652],
@@ -46,15 +48,7 @@ coordinates = {
 "UnitedKingdomLondon": [+51.5002, -0.126214]
 }
 
-#"IcelandReykjavik": [+64.1353, -21.895215],
 
-
-current = [+64.1353, -21.895215]              #SpainMadrid
-homecoordinates = [+64.1353, -21.895215]
-
-
-
-###########################################################################################################################
 
 import haversine as hs
 
@@ -78,15 +72,18 @@ def next_city(current, availablecities):
             min_index = i
 
 
+
+
     closestcity = list(availablecities.keys())[min_index]
 
     current = closestcity
 
-    print(current)
 
     availablecities.pop(closestcity)
 
     return (coordinates[current], availablecities, min_distance)
+
+
 
 
 
@@ -96,28 +93,68 @@ def return_home(current, homecoordinates):
 
     return returndistance
 
+##############################################################################################################################
 
 
-###########################################################################################################################
+totaldistances = []
+startingpoints = []
+
+
+def solution(coordinates):
+
+    for j in coordinates:
+
+        aux_dict = coordinates.copy()
+        current = aux_dict.pop(j)
+        homecoordinates = current
+
+
+        total_distance = 0
+
+        city_dict = aux_dict.copy()
+
+
+        for i in range(len(aux_dict)):
+
+            current, city_dict, min_distance = next_city(current,city_dict)
+
+            total_distance = total_distance + min_distance
+
+
+        totaldistancehome = total_distance + return_home(current, homecoordinates)
+
+
+        totaldistances.append(totaldistancehome)
+
+
+        startingpoints.append(j)
+
+
+solution(coordinates)
+
+####################################################################################################################
+
+def mindistance(totaldistances, startingpoints):
+    mintotaldistance = totaldistances[0]
+    minpointindex = 0
+
+
+    for k, distance in enumerate(totaldistances):
+        if distance < mintotaldistance:
+            mintotaldistance = distance
+            minpointindex = k
+
+    startingcity = startingpoints[minpointindex]
+    return mintotaldistance, startingcity
 
 
 
 
-city_dict = coordinates.copy()
 
 
-total_distance = 0
+mintotaldistance, startingcity = mindistance(totaldistances, startingpoints)
 
 
-for i in range (len(coordinates)):
 
 
-    current, city_dict, min_distance = next_city(current,city_dict)
-
-    total_distance = total_distance + min_distance
-
-
-totaldistancehome = total_distance + return_home(current, homecoordinates)
-
-
-print(f"The total distance to travel from Reykjavik, Iceland through all the capital cities in Europe and back to Reykjavik, Iceland is {round(totaldistancehome, 2)}")
+print(f"The route with the minimum total distance to travel through all the capital cities in Europe and back to the starting point starts in {startingcity} and the total distance is {round(mintotaldistance, 2)}.")
